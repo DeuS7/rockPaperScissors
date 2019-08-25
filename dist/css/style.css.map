@@ -1,0 +1,1 @@
+{"version":3,"sources":["style.scss"],"names":[],"mappings":"AAAA;EACC,8BAAsB;UAAtB,sBAAsB,EAAA;;AAGvB;EACC,mBAAmB;EACnB,wBAAgB;EAAhB,gBAAgB,EAAA","file":"style.css","sourcesContent":["html {\r\n\tbox-sizing: border-box;\r\n}\r\n\r\nbody {\r\n\tbackground: crimson;\r\n\ttransition: 0.3s;\r\n}"]}
