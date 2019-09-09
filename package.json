@@ -18,6 +18,7 @@
   "homepage": "https://github.com/DeuS7/gulpBoilerplate#readme",
   "devDependencies": {
     "browser-sync": "^2.26.7",
+    "eslint": "^6.3.0",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^7.0.0",
     "gulp-concat": "^2.6.1",
