@@ -12,7 +12,14 @@
         "ecmaVersion": 2018
     },
     "rules": {
-        "indent": [2, 2],
-        "semi": [2, "always"]
+        "indent": [2, "tab"],
+        "semi": [2, "always"],
+        "no-console": 1,
+        "curly": [1, "all"],
+        "dot-location": [1, "object"],
+        "dot-notation": "error",
+        "no-alert": "error",
+        "no-extra-bind": "error",
+        "new-cap": ["error", { "newIsCap": true }]
     }
 }
