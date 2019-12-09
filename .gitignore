@@ -1,3 +1,7 @@
 node_modules
 *.sublime-project
 *.sublime-workspace
+rps-model.weights.bin
+rps-model.json
+app/data
+app/testpaper01-02.png
