@@ -1,8 +1,5 @@
-const imgWidth = 64;
-const imgHeight = 64;
 const image_size = imgWidth * imgHeight;
 const num_classes = 3;
-const num_channels = 3;
 
 const num_dataset_elements = 2520;
 const train_test_ratio = 5/6;
