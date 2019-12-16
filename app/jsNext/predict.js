@@ -3,6 +3,7 @@ const testImage = document.getElementById("testImage");
 
 const doSinglePrediction = async (model, img, options = {}) => {
   const resized = tf.tidy(() => {
+
     img = tf.browser.fromPixels(img)
     if (num_channels === 1) {
       
@@ -35,8 +36,11 @@ const doSinglePrediction = async (model, img, options = {}) => {
   resized.dispose()
   logits.dispose()
   
-  return classNames.map((className, idx) => ({
-    className,
-    probability: values[idx]
-  }))
+  let result = {};
+
+  for (let i = 0;i<values.length;i++) {
+    result[classNames[i]] = values[i];
+  }
+
+  return result;
 }

@@ -4,7 +4,7 @@ data.load();
 
 setTimeout(function() {
   console.log("Training begun");
-  train(model, data, 5);
+  //train(model, data, 1);
 }, 2000);
 
 var video = document.querySelector("#videoElement");
@@ -17,7 +17,7 @@ document.addEventListener('keydown', function(e) {
   }
   if (e.keyCode == 32) {
     doSinglePrediction(model, video).then(function(res) {
-      console.log(res[0] + res[1] + res[2]);
+      console.log(res);
     })
   }
 })
