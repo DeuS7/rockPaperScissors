@@ -10,7 +10,7 @@ const num_train_elements = Math.floor(
   train_test_ratio * num_dataset_elements
 )
 const num_test_elements = num_dataset_elements - num_train_elements;
-const batch_size = 100;
+const batch_size = 150;
 
 const model = tf.sequential();
 
