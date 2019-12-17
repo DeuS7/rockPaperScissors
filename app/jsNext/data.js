@@ -1,6 +1,3 @@
-const RPS_IMAGES_SPRITE_PATH = '../data/data.png';
-const RPS_LABELS_PATH = '../data/labels_uint8';
-
 class RPSData {
 	constructor() {
 		this.shuffledTrainIndex = 0
@@ -19,18 +16,18 @@ class RPSData {
 				img.height = img.naturalHeight
 
 				const datasetBytesBuffer = new ArrayBuffer(
-					num_dataset_elements * image_size * 4 * num_channels 
+					numDatasetElements * imgSize * 4 * numChannels 
 					)
 
-				const chunkSize = Math.floor(num_test_elements * 0.15)
+				const chunkSize = Math.floor(numTestElements * 0.15)
         canvas.width = img.width
         canvas.height = chunkSize
 
-        for (let i = 0; i < num_dataset_elements / chunkSize; i++) { 
+        for (let i = 0; i < numDatasetElements / chunkSize; i++) { 
         	const datasetBytesView = new Float32Array(
             datasetBytesBuffer, 
-            i * chunkSize * image_size * 4 * num_channels, 
-            image_size * chunkSize * num_channels 
+            i * chunkSize * imgSize * 4 * numChannels, 
+            imgSize * chunkSize * numChannels 
           )
 
           ctx.drawImage(
@@ -49,7 +46,7 @@ class RPSData {
           let x = 0
 
           for (let j = 0; j < imageData.data.length; j += 4) {
-            for (let i = 0; i < num_channels; i++) {
+            for (let i = 0; i < numChannels; i++) {
               datasetBytesView[x++] = imageData.data[j + i] / 255
             }
           }
@@ -68,21 +65,21 @@ class RPSData {
 
     this.datasetLabels = new Uint8Array(await labelsResponse.arrayBuffer());
 
-    this.trainIndices = tf.util.createShuffledIndices(num_train_elements)
-    this.testIndices = tf.util.createShuffledIndices(num_test_elements)
+    this.trainIndices = tf.util.createShuffledIndices(numTrainElements)
+    this.testIndices = tf.util.createShuffledIndices(numTestElements)
 
     this.trainImages = this.datasetImages.slice(
       0,
-      image_size * num_train_elements * num_channels
+      imgSize * numTrainElements * numChannels
     )
     this.testImages = this.datasetImages.slice(
-      image_size * num_train_elements * num_channels
+      imgSize * numTrainElements * numChannels
     )
     this.trainLabels = this.datasetLabels.slice(
       0,
-      num_classes * num_train_elements
+      numClasses * numTrainElements
     )
-    this.testLabels = this.datasetLabels.slice(num_classes * num_train_elements)
+    this.testLabels = this.datasetLabels.slice(numClasses * numTrainElements)
 	}
 
 	nextTrainBatch(batchSize) {
@@ -107,32 +104,32 @@ class RPSData {
 
   nextBatch(batchSize, data, index) {
     const batchImagesArray = new Float32Array(
-      batchSize * image_size * num_channels
+      batchSize * imgSize * numChannels
     )
-    const batchLabelsArray = new Uint8Array(batchSize * num_classes)
+    const batchLabelsArray = new Uint8Array(batchSize * numClasses)
 
     for (let i = 0; i < batchSize; i++) {
       const idx = index()
 
-      const startPoint = idx * image_size * num_channels
+      const startPoint = idx * imgSize * numChannels
       const image = data[0].slice(
         startPoint,
-        startPoint + image_size * num_channels
+        startPoint + imgSize * numChannels
       )
-      batchImagesArray.set(image, i * image_size * num_channels)
+      batchImagesArray.set(image, i * imgSize * numChannels)
 
       const label = data[1].slice(
-        idx * num_classes,
-        idx * num_classes + num_classes
+        idx * numClasses,
+        idx * numClasses + numClasses
       )
-      batchLabelsArray.set(label, i * num_classes)
+      batchLabelsArray.set(label, i * numClasses)
     }
     const xs = tf.tensor3d(batchImagesArray, [
       batchSize,
-      image_size,
-      num_channels
+      imgSize,
+      numChannels
     ])
-    const labels = tf.tensor2d(batchLabelsArray, [batchSize, num_classes])
+    const labels = tf.tensor2d(batchLabelsArray, [batchSize, numClasses])
     return { xs, labels }
   }
 

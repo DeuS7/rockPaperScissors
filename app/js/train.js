@@ -8,33 +8,33 @@ const train = (model, data, numEpochs = 10) => {
 	tfvis.visor().setActiveTab('Visor')
 
 	const [trainXs, trainYs] = tf.tidy(() => {
-		const d = data.nextTrainBatch(num_train_elements)
+		const d = data.nextTrainBatch(numTrainElements)
 		return [
 		d.xs.reshape([
-			num_train_elements,
+			numTrainElements,
 			imgHeight,
 			imgHeight,
-			num_channels
+			numChannels
 			]),
 		d.labels
 		]
 	})
 
 	const [testXs, testYs] = tf.tidy(() => {
-		const d = data.nextTestBatch(num_test_elements)
+		const d = data.nextTestBatch(numTestElements)
 		return [
 		d.xs.reshape([
-			num_test_elements,
+			numTestElements,
 			imgHeight,
 			imgHeight,
-			num_channels
+			numChannels
 			]),
 		d.labels
 		]
 	})
 
 	return model.fit(trainXs, trainYs, {
-    batchSize: batch_size,
+    batchSize: batchSize,
     validationData: [testXs, testYs],
     epochs: numEpochs,
     shuffle: true,

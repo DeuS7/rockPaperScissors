@@ -3,7 +3,7 @@ var video = document.querySelector("#videoElement");
 const classNames = ['Rock', 'Paper', 'Scissors'];
 const imgWidth = 64;
 const imgHeight = 64;
-const num_channels = 3;
+const numChannels = 3;
 
 let settings = {
   gestDet: {
@@ -30,7 +30,7 @@ const doSinglePrediction = async (model, img, options = {}) => {
   const resized = tf.tidy(() => {
 
     img = tf.browser.fromPixels(img)
-    if (num_channels === 1) {
+    if (numChannels === 1) {
       
       const gray_mid = img.mean(2)
       img = gray_mid.expandDims(2) 
@@ -49,7 +49,7 @@ const doSinglePrediction = async (model, img, options = {}) => {
       1,
       imgWidth,
       imgHeight,
-      num_channels
+      numChannels
     ])
 
     
@@ -81,7 +81,12 @@ function cropVideo(video, devMode) {
   let heightCoeff = video.videoHeight / 375;
 
   var ctx = canvas.getContext('2d');
+  //Flips the pixels of the img around
+  ctx.translate(settings.gestDet.width, 0);
+  ctx.scale(-1, 1);
+
   ctx.drawImage(video, 0, 0, settings.gestDet.width*widthCoeff, settings.gestDet.height*heightCoeff, 0, 0, canvas.width, canvas.width);
+
 
   if (devMode) {
     if (!document.getElementById("devModeCroppedImage")) {
@@ -91,8 +96,8 @@ function cropVideo(video, devMode) {
       document.body.prepend(div);
     }
 
-    document.getElementById("croppedImg").innerHTML = "";
-    document.getElementById("croppedImg").append(canvas);
+    document.getElementById("devModeCroppedImage").innerHTML = "";
+    document.getElementById("devModeCroppedImage").append(canvas);
   }
 
   return canvas;

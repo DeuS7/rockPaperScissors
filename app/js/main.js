@@ -4,7 +4,7 @@ data.load();
 
 setTimeout(function() {
   console.log("Training begun");
-  //train(model, data, 1);
+  train(model, data, 1);
 }, 2000);
 
 document.addEventListener('keydown', function(e) {
