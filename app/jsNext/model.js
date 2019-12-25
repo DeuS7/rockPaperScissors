@@ -10,7 +10,7 @@ const numTrainElements = Math.floor(
   trainTestRatio * numDatasetElements
   )
 const numTestElements = numDatasetElements - numTrainElements;
-const batchSize = 100;
+const batchSize = 75;
 
 const model = tf.sequential();
 
@@ -23,9 +23,8 @@ model.add(
     activation: 'relu',
     kernelInitializer: 'varianceScaling'
   })
-  )
-
-model.add(tf.layers.maxPooling2d({ poolSize: [2, 2], strides: [2, 2] }))
+);
+model.add(tf.layers.maxPooling2d({ poolSize: [2, 2], strides: [2, 2] }));
 
 model.add(
   tf.layers.conv2d({
@@ -35,20 +34,21 @@ model.add(
     activation: 'relu',
     kernelInitializer: 'varianceScaling'
   })
-  )
-model.add(tf.layers.maxPooling2d({ poolSize: [2, 2], strides: [2, 2] }))
+);
+model.add(tf.layers.maxPooling2d({ poolSize: [2, 2], strides: [2, 2] }));
 
-model.add(tf.layers.flatten())
+model.add(tf.layers.flatten());
+
 model.add(
   tf.layers.dense({
     units: 3,
     kernelInitializer: 'varianceScaling',
     activation: 'softmax'
   })
-  )
-const optimizer = tf.train.adam();
+);
+
 model.compile({
-  optimizer: optimizer,
+  optimizer: tf.train.adam(),
   loss: 'categoricalCrossentropy',
   metrics: ['accuracy']
-})
+});
